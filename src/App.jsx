@@ -2155,7 +2155,6 @@ function App() {
                 )}
               </motion.div>
             )}
-
             <motion.div variants={sectionStaggerItemVariants} className="mt-2">
               {isProjectsLoading && (
                 <div className="text-center text-sm font-semibold text-slate-500 dark:text-slate-300">
