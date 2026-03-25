@@ -1,0 +1,52 @@
+from django.urls import path
+from rest_framework_simplejwt.views import TokenRefreshView
+
+from .views import (
+    AdminContactMessageListAPIView,
+    AdminContactMessageUpdateAPIView,
+    AdminOrderDetailAPIView,
+    AdminOrderInvoiceAPIView,
+    AdminOrderListAPIView,
+    AdminOrderRefundListCreateAPIView,
+    AdminOrderRefundUpdateAPIView,
+    AdminOrderUpdateAPIView,
+    AdminLoginAPIView,
+    AnalyticsChartAPIView,
+    AdminDashboardSummaryAPIView,
+    AdminUserListAPIView,
+    AdminUserUpdateAPIView,
+    ChangePasswordView,
+    ContactMessageCreateAPIView,
+    LoginActivityListAPIView,
+    LoginAPIView,
+    ProjectListAPIView,
+    RegisterAPIView,
+    VisitorActivityListAPIView,
+    VisitorTrackAPIView,
+)
+
+urlpatterns = [
+    path('projects/', ProjectListAPIView.as_view(), name='project-list'),
+    path('contacts/', ContactMessageCreateAPIView.as_view(), name='contact-create'),
+    path('auth/register/', RegisterAPIView.as_view(), name='auth-register'),
+    path('auth/login/', LoginAPIView.as_view(), name='auth-login'),
+    path('auth/admin-login/', AdminLoginAPIView.as_view(), name='auth-admin-login'),
+    path('auth/change-password/', ChangePasswordView.as_view(), name='auth-change-password'),
+    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token-refresh'),
+    path('analytics/track-visit/', VisitorTrackAPIView.as_view(), name='analytics-track-visit'),
+
+    path('admin/summary/', AdminDashboardSummaryAPIView.as_view(), name='admin-summary'),
+    path('admin/users/', AdminUserListAPIView.as_view(), name='admin-users'),
+    path('admin/users/<int:user_id>/', AdminUserUpdateAPIView.as_view(), name='admin-user-update'),
+    path('admin/messages/', AdminContactMessageListAPIView.as_view(), name='admin-messages'),
+    path('admin/messages/<int:message_id>/', AdminContactMessageUpdateAPIView.as_view(), name='admin-message-update'),
+    path('admin/login-activity/', LoginActivityListAPIView.as_view(), name='admin-login-activity'),
+    path('admin/visitors/', VisitorActivityListAPIView.as_view(), name='admin-visitors'),
+    path('admin/analytics/chart/', AnalyticsChartAPIView.as_view(), name='admin-analytics-chart'),
+    path('admin/orders/', AdminOrderListAPIView.as_view(), name='admin-orders'),
+    path('admin/orders/<int:order_id>/', AdminOrderDetailAPIView.as_view(), name='admin-order-detail'),
+    path('admin/orders/<int:order_id>/update/', AdminOrderUpdateAPIView.as_view(), name='admin-order-update'),
+    path('admin/orders/<int:order_id>/invoice/', AdminOrderInvoiceAPIView.as_view(), name='admin-order-invoice'),
+    path('admin/orders/<int:order_id>/refunds/', AdminOrderRefundListCreateAPIView.as_view(), name='admin-order-refunds'),
+    path('admin/orders/<int:order_id>/refunds/<int:refund_id>/', AdminOrderRefundUpdateAPIView.as_view(), name='admin-order-refund-update'),
+]

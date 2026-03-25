@@ -1,0 +1,21 @@
+<svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Zencode emblem</title>
+  <desc id="desc">Circular blue emblem with code braces in center.</desc>
+  <defs>
+    <linearGradient id="ringGradient" x1="20" y1="20" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B2347" />
+      <stop offset="1" stop-color="#133E76" />
+    </linearGradient>
+    <linearGradient id="braceGradient" x1="72" y1="70" x2="148" y2="150" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2F7F9D" />
+      <stop offset="1" stop-color="#1D4D79" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="110" cy="110" r="74" fill="none" stroke="url(#ringGradient)" stroke-width="18" />
+  <path d="M45 111c0-29 18-55 45-67" fill="none" stroke="#0B2347" stroke-width="6" stroke-linecap="round" opacity="0.95" />
+  <path d="M175 109c0 29-18 55-45 67" fill="none" stroke="#0B2347" stroke-width="6" stroke-linecap="round" opacity="0.95" />
+
+  <path d="M91 72c-11 0-18 7-18 18v9c0 6-2 9-8 11c6 2 8 5 8 11v9c0 11 7 18 18 18" fill="none" stroke="url(#braceGradient)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M129 72c11 0 18 7 18 18v9c0 6 2 9 8 11c-6 2-8 5-8 11v9c0 11-7 18-18 18" fill="none" stroke="url(#braceGradient)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
