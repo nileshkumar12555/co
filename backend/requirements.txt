@@ -1,5 +1,6 @@
 Django
 djangorestframework
+djangorestframework-simplejwt
 gunicorn
 django-cors-headers
 python-decouple
