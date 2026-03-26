@@ -55,13 +55,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# PostgreSQL database configuration for Render
+import dj_database_url
+from decouple import config
 
+DATABASES = {
+    'default': dj_database_url.parse(
+        config('DATABASE_URL', default='postgresql://nilesh_user:dl66im6uwjpQfzb2lWLhR0yGlP3nnci2@dpg-d72iqi94tr6s73bgouh0-a.oregon-postgres.render.com/nilesh_db')
+    )
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
