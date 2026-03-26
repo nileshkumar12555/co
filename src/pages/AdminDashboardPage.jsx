@@ -1249,7 +1249,6 @@ export default function AdminDashboardPage() {
         </button>
       </div>
     </aside>
-      </aside>
       {/* Hamburger button for mobile */}
       {isMobile && !sidebarOpen && (
         <button
