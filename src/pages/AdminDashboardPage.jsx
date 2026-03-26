@@ -595,6 +595,13 @@ const SIDEBAR_ITEMS = [
 ]
 
 export default function AdminDashboardPage() {
+  // Detect mobile viewport
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const { user, isAdmin, logout, authRequest } = useAuth()
   const navigate = useNavigate()
 
@@ -1108,11 +1115,20 @@ export default function AdminDashboardPage() {
   // Sidebar with Orders sub-menu toggle
   const [ordersMenuOpen, setOrdersMenuOpen] = useState(false);
   const Sidebar = (
-    <aside
-      className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-white/5 bg-[#080d1e]/95 px-4 py-6 backdrop-blur-2xl transition-transform duration-300 lg:translate-x-0 ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}
-    >
+    <>
+      {/* Mobile overlay */}
+      {isMobile && sidebarOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+      <aside
+        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-white/5 bg-[#080d1e]/95 px-4 py-6 backdrop-blur-2xl transition-transform duration-300 lg:translate-x-0 ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+        style={{ maxWidth: '90vw' }}
+      >
       {/* brand */}
       <div className="flex items-center justify-between">
         <div>
@@ -1123,6 +1139,7 @@ export default function AdminDashboardPage() {
           type="button"
           onClick={() => setSidebarOpen(false)}
           className="rounded-xl border border-white/10 p-2 text-xs text-slate-400 lg:hidden"
+          aria-label="Close sidebar"
         >
           ✕
         </button>
@@ -1232,7 +1249,19 @@ export default function AdminDashboardPage() {
         </button>
       </div>
     </aside>
-  )
+      </aside>
+      {/* Hamburger button for mobile */}
+      {isMobile && !sidebarOpen && (
+        <button
+          type="button"
+          className="fixed top-4 left-4 z-50 rounded-xl border border-white/10 bg-[#080d1e]/90 p-2 text-xl text-white shadow-lg lg:hidden"
+          onClick={() => setSidebarOpen(true)}
+          aria-label="Open sidebar"
+        >
+          <FaBars />
+        </button>
+      )}
+    </>
 
   /* ---------------------------------------------------------------- */
   /*  Section content                                                  */
@@ -1429,7 +1458,7 @@ export default function AdminDashboardPage() {
       }
     >
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[760px] text-left text-sm">
+        <table className="w-full min-w-[520px] text-left text-sm">
           <thead>
             <tr className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               <th className="pb-3 pr-4">User</th>
@@ -1444,7 +1473,7 @@ export default function AdminDashboardPage() {
             {usersData.results.map((u) => (
               <tr key={u.id} className="border-t border-slate-800/70">
                 <td className="py-3.5 pr-4">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 flex-col sm:flex-row">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600/40 to-cyan-500/30 text-xs font-black text-white">
                       {(u.full_name || u.username || '?')[0].toUpperCase()}
                     </div>
@@ -1454,7 +1483,7 @@ export default function AdminDashboardPage() {
                     </div>
                   </div>
                 </td>
-                <td className="py-3.5 pr-4 text-slate-400">{u.email}</td>
+                <td className="py-3.5 pr-4 text-slate-400 break-all max-w-[120px]">{u.email}</td>
                 <td className="py-3.5 pr-4 text-slate-500">{new Date(u.date_joined).toLocaleDateString()}</td>
                 <td className="py-3.5 pr-4">
                   <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${u.is_active ? 'bg-emerald-500/15 text-emerald-300' : 'bg-amber-500/15 text-amber-300'}`}>
